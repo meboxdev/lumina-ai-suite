@@ -1,8 +1,46 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import heroVideo from "@/assets/hero-video.mp4";
+import { useState, useRef } from "react";
 
 const Hero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(1);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (videoRef.current) {
+      videoRef.current.volume = newVolume;
+      if (newVolume === 0) {
+        setIsMuted(true);
+      } else if (isMuted) {
+        setIsMuted(false);
+        videoRef.current.muted = false;
+      }
+    }
+  };
+
   return (
     <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Gradient Background */}
@@ -71,14 +109,58 @@ const Hero = () => {
             <div className="absolute inset-0 bg-gradient-neon opacity-20 blur-3xl rounded-3xl" />
             <div className="relative rounded-2xl overflow-hidden border border-primary/20 shadow-2xl glow-neon-mix animate-float">
               <video
+                ref={videoRef}
                 src={heroVideo}
-                autoPlay
                 loop
-                muted
                 playsInline
                 className="w-full h-auto"
                 aria-label="Vizer AI Dashboard Demo"
               />
+              
+              {/* Video Controls Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 backdrop-blur-sm">
+                <div className="flex items-center gap-4">
+                  {/* Play/Pause Button */}
+                  <button
+                    onClick={togglePlay}
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/20 hover:bg-primary/40 border border-primary/40 transition-all duration-300 glow-neon-blue"
+                    aria-label={isPlaying ? "Pause" : "Play"}
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5 text-white" />
+                    ) : (
+                      <Play className="w-5 h-5 text-white ml-0.5" />
+                    )}
+                  </button>
+
+                  {/* Volume Controls */}
+                  <div className="flex items-center gap-2 flex-1">
+                    <button
+                      onClick={toggleMute}
+                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-primary/20 transition-all duration-300"
+                      aria-label={isMuted ? "Unmute" : "Mute"}
+                    >
+                      {isMuted || volume === 0 ? (
+                        <VolumeX className="w-4 h-4 text-white/80" />
+                      ) : (
+                        <Volume2 className="w-4 h-4 text-white/80" />
+                      )}
+                    </button>
+
+                    {/* Volume Slider */}
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value={volume}
+                      onChange={handleVolumeChange}
+                      className="w-24 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(59,130,246,0.5)] [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
+                      aria-label="Volume"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
