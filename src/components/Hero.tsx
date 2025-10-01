@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import heroVideo from "@/assets/hero-video.mp4";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(1);
+  const [isControlsVisible, setIsControlsVisible] = useState(false);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -40,6 +42,43 @@ const Hero = () => {
       }
     }
   };
+
+  const showControls = () => {
+    setIsControlsVisible(true);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    controlsTimeoutRef.current = setTimeout(() => {
+      setIsControlsVisible(false);
+    }, 3000);
+  };
+
+  const handleMouseEnter = () => {
+    showControls();
+  };
+
+  const handleMouseMove = () => {
+    showControls();
+  };
+
+  const handleMouseLeave = () => {
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    setIsControlsVisible(false);
+  };
+
+  const handleTouchStart = () => {
+    showControls();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -109,7 +148,13 @@ const Hero = () => {
           {/* Hero Video */}
           <div className="relative animate-scale-in">
             <div className="absolute inset-0 bg-gradient-neon opacity-20 blur-3xl rounded-3xl" />
-            <div className="relative rounded-2xl overflow-hidden border border-primary/20 shadow-2xl glow-neon-mix animate-float">
+            <div 
+              className="relative rounded-2xl overflow-hidden border border-primary/20 shadow-2xl glow-neon-mix animate-float"
+              onMouseEnter={handleMouseEnter}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              onTouchStart={handleTouchStart}
+            >
               <video
                 ref={videoRef}
                 src={heroVideo}
@@ -119,7 +164,7 @@ const Hero = () => {
               />
               
               {/* Video Controls Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 backdrop-blur-sm">
+              <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 backdrop-blur-sm transition-opacity duration-300 ${isControlsVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="flex items-center gap-4">
                   {/* Play/Pause Button */}
                   <button
