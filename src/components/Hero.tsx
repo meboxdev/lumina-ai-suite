@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import heroMockup from "@/assets/hero-mockup.png";
+import heroVideo from "@/assets/hero-video.mp4";
 
 const Hero = () => {
   return (
@@ -66,14 +66,18 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Mockup Image */}
+          {/* Hero Video */}
           <div className="relative animate-scale-in">
             <div className="absolute inset-0 bg-gradient-neon opacity-20 blur-3xl rounded-3xl" />
             <div className="relative rounded-2xl overflow-hidden border border-primary/20 shadow-2xl glow-neon-mix animate-float">
-              <img
-                src={heroMockup}
-                alt="IA Hub Dashboard"
+              <video
+                src={heroVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-auto"
+                aria-label="Vizer AI Dashboard Demo"
               />
             </div>
           </div>

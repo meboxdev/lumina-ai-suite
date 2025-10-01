@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import vizerLogo from "@/assets/vizer-ai-logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,11 +32,13 @@ const Header = () => {
       <nav className="container mx-auto px-4 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-neon rounded-lg flex items-center justify-center glow-neon-blue transition-all duration-300 group-hover:scale-110">
-              <span className="text-white font-bold text-xl">IA</span>
-            </div>
-            <span className="text-xl font-bold text-gradient-neon">Hub</span>
+          <a href="#inicio" className="flex items-center space-x-3 group">
+            <img 
+              src={vizerLogo} 
+              alt="Vizer AI" 
+              className="w-10 h-10 transition-all duration-300 group-hover:scale-110 glow-neon-blue rounded-lg"
+            />
+            <span className="text-xl font-bold text-gradient-neon">Vizer AI</span>
           </a>
 
           {/* Desktop Menu */}
@@ -54,8 +57,11 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button className="bg-gradient-neon text-white hover:opacity-90 transition-all duration-300 glow-neon-mix animate-pulse-glow">
-              Experimentar Agora
+            <Button 
+              className="bg-gradient-neon text-white hover:opacity-90 transition-all duration-300 glow-neon-mix animate-pulse-glow"
+              onClick={() => window.location.href = '#login'}
+            >
+              Login
             </Button>
           </div>
 
@@ -83,8 +89,11 @@ const Header = () => {
                   {item.label}
                 </a>
               ))}
-              <Button className="bg-gradient-neon text-white w-full mt-2">
-                Experimentar Agora
+              <Button 
+                className="bg-gradient-neon text-white w-full mt-2"
+                onClick={() => window.location.href = '#login'}
+              >
+                Login
               </Button>
             </div>
           </div>

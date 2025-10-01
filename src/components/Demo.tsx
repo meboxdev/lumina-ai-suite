@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { MessageSquare, Image, FileText } from "lucide-react";
+import fashionTransform from "@/assets/gallery/fashion-transform.png";
+import houseConstruction from "@/assets/gallery/house-construction.png";
+import flyingVehicle from "@/assets/gallery/flying-vehicle.png";
+import womanTablet from "@/assets/gallery/woman-tablet.png";
+import catSkateboard from "@/assets/gallery/cat-skateboard.png";
+import photoRestoration from "@/assets/gallery/photo-restoration.png";
 
 const Demo = () => {
   const [activeTab, setActiveTab] = useState("chat");
@@ -86,11 +92,25 @@ const Demo = () => {
               </TabsContent>
 
               <TabsContent value="image" className="bg-card border border-border rounded-2xl p-6 min-h-[400px] glow-neon-purple">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="aspect-square bg-muted rounded-xl animate-pulse" />
-                  <div className="aspect-square bg-muted rounded-xl animate-pulse" />
-                  <div className="aspect-square bg-muted rounded-xl animate-pulse" />
-                  <div className="aspect-square bg-muted rounded-xl animate-pulse" />
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <div className="aspect-square rounded-xl overflow-hidden border border-primary/20 hover:scale-105 transition-transform duration-300">
+                    <img src={fashionTransform} alt="Transformação de moda com IA" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="aspect-square rounded-xl overflow-hidden border border-primary/20 hover:scale-105 transition-transform duration-300">
+                    <img src={houseConstruction} alt="Visualização de construção com IA" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="aspect-square rounded-xl overflow-hidden border border-primary/20 hover:scale-105 transition-transform duration-300">
+                    <img src={flyingVehicle} alt="Veículo voador futurista gerado por IA" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="aspect-square rounded-xl overflow-hidden border border-primary/20 hover:scale-105 transition-transform duration-300">
+                    <img src={womanTablet} alt="Interface de IA em ambiente urbano" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="aspect-square rounded-xl overflow-hidden border border-primary/20 hover:scale-105 transition-transform duration-300">
+                    <img src={catSkateboard} alt="Gato em skate estilo cyberpunk gerado por IA" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="aspect-square rounded-xl overflow-hidden border border-primary/20 hover:scale-105 transition-transform duration-300">
+                    <img src={photoRestoration} alt="Restauração de foto com IA" className="w-full h-full object-cover" />
+                  </div>
                 </div>
               </TabsContent>
 
