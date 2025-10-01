@@ -73,6 +73,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 className="bg-gradient-neon text-white hover:opacity-90 transition-all duration-300 glow-neon-mix text-lg px-8 py-6 group animate-pulse-glow"
+                onClick={() => window.open('https://www.iubenda.com/pt-br/help/146046-free-privacy-policy-generator', '_blank')}
               >
                 Experimentar grátis
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -81,6 +82,7 @@ const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="border-2 border-foreground/20 hover:border-primary hover:bg-card/50 text-lg px-8 py-6 backdrop-blur-sm"
+                onClick={() => window.open('https://www.iubenda.com/pt-br/help/146046-free-privacy-policy-generator', '_blank')}
               >
                 Ver planos
               </Button>
@@ -111,7 +113,6 @@ const Hero = () => {
               <video
                 ref={videoRef}
                 src={heroVideo}
-                loop
                 playsInline
                 className="w-full h-auto"
                 aria-label="Vizer AI Dashboard Demo"

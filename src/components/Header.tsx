@@ -59,7 +59,7 @@ const Header = () => {
           <div className="hidden lg:block">
             <Button 
               className="bg-gradient-neon text-white hover:opacity-90 transition-all duration-300 glow-neon-mix animate-pulse-glow"
-              onClick={() => window.location.href = '#login'}
+              onClick={() => window.open('https://www.iubenda.com/pt-br/help/146046-free-privacy-policy-generator', '_blank')}
             >
               Login
             </Button>
@@ -91,7 +91,7 @@ const Header = () => {
               ))}
               <Button 
                 className="bg-gradient-neon text-white w-full mt-2"
-                onClick={() => window.location.href = '#login'}
+                onClick={() => window.open('https://www.iubenda.com/pt-br/help/146046-free-privacy-policy-generator', '_blank')}
               >
                 Login
               </Button>
